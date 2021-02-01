@@ -9,10 +9,10 @@ namespace BabylonJS
     using EventHorizon.Blazor.Interop.Callbacks;
     using Microsoft.JSInterop;
 
+    public interface AnimationEvent : ICachedEntity { }
     
-    
-    [JsonConverter(typeof(CachedEntityConverter<AnimationEvent>))]
-    public class AnimationEvent : CachedEntityObject
+    [JsonConverter(typeof(CachedEntityConverter<AnimationEventCachedEntity>))]
+    public class AnimationEventCachedEntity : CachedEntityObject, Event, AnimationEvent
     {
         #region Static Accessors
 
@@ -32,144 +32,56 @@ namespace BabylonJS
 
         #region Properties
         
-        public decimal frame
+        public string animationName
+        {
+            get
+            {
+            return EventHorizonBlazorInterop.Get<string>(
+                    this.___guid,
+                    "animationName"
+                );
+            }
+        }
+
+        
+        public decimal elapsedTime
         {
             get
             {
             return EventHorizonBlazorInterop.Get<decimal>(
                     this.___guid,
-                    "frame"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "frame",
-                    value
+                    "elapsedTime"
                 );
             }
         }
 
         
-        public bool onlyOnce
+        public string pseudoElement
         {
             get
             {
-            return EventHorizonBlazorInterop.Get<bool>(
+            return EventHorizonBlazorInterop.Get<string>(
                     this.___guid,
-                    "onlyOnce"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "onlyOnce",
-                    value
-                );
-            }
-        }
-
-        
-        public bool isDone
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "isDone"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "isDone",
-                    value
+                    "pseudoElement"
                 );
             }
         }
         #endregion
         
         #region Constructor
-        public AnimationEvent() : base() { }
+        public AnimationEventCachedEntity() : base() { }
 
-        public AnimationEvent(
+        public AnimationEventCachedEntity(
             ICachedEntity entity
         ) : base(entity)
         {
-            ___guid = entity.___guid;
         }
 
-        public AnimationEvent(
-            decimal frame, ActionCallback<decimal> action, System.Nullable<bool> onlyOnce = null
-        )
-        {
-            var entity = EventHorizonBlazorInterop.New(
-                new string[] { "BABYLON", "AnimationEvent" },
-                frame, action, onlyOnce
-            );
-            ___guid = entity.___guid;
-        }
+
         #endregion
 
         #region Methods
-        #region action TODO: Get Comments as metadata identification
-        private bool _isActionEnabled = false;
-        private readonly IDictionary<string, Func<Task>> _actionActionMap = new Dictionary<string, Func<Task>>();
 
-        public string action(
-            Func<Task> callback
-        )
-        {
-            SetupActionLoop();
-
-            var handle = Guid.NewGuid().ToString();
-            _actionActionMap.Add(
-                handle,
-                callback
-            );
-
-            return handle;
-        }
-
-        public bool action_Remove(
-            string handle
-        )
-        {
-            return _actionActionMap.Remove(
-                handle
-            );
-        }
-
-        private void SetupActionLoop()
-        {
-            if (_isActionEnabled)
-            {
-                return;
-            }
-            EventHorizonBlazorInterop.FuncCallback(
-                this,
-                "action",
-                "CallActionActions",
-                _invokableReference
-            );
-            _isActionEnabled = true;
-        }
-
-        [JSInvokable]
-        public async Task CallActionActions()
-        {
-            foreach (var action in _actionActionMap.Values)
-            {
-                await action();
-            }
-        }
-        #endregion
         #endregion
     }
 }

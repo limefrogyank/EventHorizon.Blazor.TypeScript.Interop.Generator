@@ -12,7 +12,7 @@ namespace BabylonJS
     public interface CanvasRenderingContext2D : ICachedEntity { }
     
     [JsonConverter(typeof(CachedEntityConverter<CanvasRenderingContext2DCachedEntity>))]
-    public class CanvasRenderingContext2DCachedEntity : CachedEntityObject, CanvasRenderingContext2D
+    public class CanvasRenderingContext2DCachedEntity : CachedEntityObject, CanvasCompositing, CanvasDrawImage, CanvasDrawPath, CanvasFillStrokeStyles, CanvasFilters, CanvasImageData, CanvasImageSmoothing, CanvasPath, CanvasPathDrawingStyles, CanvasRect, CanvasShadowStyles, CanvasState, CanvasText, CanvasTextDrawingStyles, CanvasTransform, CanvasUserInterface, CanvasRenderingContext2D
     {
         #region Static Accessors
 
@@ -31,24 +31,23 @@ namespace BabylonJS
         #endregion
 
         #region Properties
-        
-        public bool msImageSmoothingEnabled
+        private HTMLCanvasElementCachedEntity __canvas;
+        public HTMLCanvasElementCachedEntity canvas
         {
             get
             {
-            return EventHorizonBlazorInterop.Get<bool>(
+            if(__canvas == null)
+            {
+                __canvas = EventHorizonBlazorInterop.GetClass<HTMLCanvasElementCachedEntity>(
                     this.___guid,
-                    "msImageSmoothingEnabled"
+                    "canvas",
+                    (entity) =>
+                    {
+                        return new HTMLCanvasElementCachedEntity() { ___guid = entity.___guid };
+                    }
                 );
             }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "msImageSmoothingEnabled",
-                    value
-                );
+            return __canvas;
             }
         }
         #endregion

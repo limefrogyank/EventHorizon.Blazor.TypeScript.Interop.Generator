@@ -23,11 +23,14 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Identifiers
             var interfaceCache = ast.RootNode.OfKind(
                 SyntaxKind.InterfaceDeclaration
             );
-            if (node is ClassDeclaration classDeclaration
-                && classDeclaration.HeritageClauses != null
-                && classDeclaration.HeritageClauses.Any())
+            if (node is InterfaceDeclaration interfaceDeclaration
+                && interfaceDeclaration.HeritageClauses != null
+                && interfaceDeclaration.HeritageClauses.Any())
+            //if (node is ClassDeclaration classDeclaration
+            //    && classDeclaration.HeritageClauses != null
+            //    && classDeclaration.HeritageClauses.Any())
             {
-                foreach (var heritageClauses in classDeclaration.HeritageClauses)
+                foreach (var heritageClauses in interfaceDeclaration.HeritageClauses)
                 {
                     foreach (var heritageClauseType in heritageClauses.Types)
                     {

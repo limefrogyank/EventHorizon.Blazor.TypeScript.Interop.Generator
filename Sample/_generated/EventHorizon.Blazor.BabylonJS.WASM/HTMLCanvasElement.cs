@@ -12,7 +12,7 @@ namespace BabylonJS
     public interface HTMLCanvasElement : ICachedEntity { }
     
     [JsonConverter(typeof(CachedEntityConverter<HTMLCanvasElementCachedEntity>))]
-    public class HTMLCanvasElementCachedEntity : CachedEntityObject, HTMLCanvasElement
+    public class HTMLCanvasElementCachedEntity : CachedEntityObject, CachedEntity, HTMLCanvasElement
     {
         #region Static Accessors
 
@@ -32,13 +32,13 @@ namespace BabylonJS
 
         #region Properties
         
-        public bool isRecording
+        public decimal height
         {
             get
             {
-            return EventHorizonBlazorInterop.Get<bool>(
+            return EventHorizonBlazorInterop.Get<decimal>(
                     this.___guid,
-                    "isRecording"
+                    "height"
                 );
             }
             set
@@ -46,7 +46,28 @@ namespace BabylonJS
 
                 EventHorizonBlazorInterop.Set(
                     this.___guid,
-                    "isRecording",
+                    "height",
+                    value
+                );
+            }
+        }
+
+        
+        public decimal width
+        {
+            get
+            {
+            return EventHorizonBlazorInterop.Get<decimal>(
+                    this.___guid,
+                    "width"
+                );
+            }
+            set
+            {
+
+                EventHorizonBlazorInterop.Set(
+                    this.___guid,
+                    "width",
                     value
                 );
             }
@@ -66,53 +87,64 @@ namespace BabylonJS
         #endregion
 
         #region Methods
-        public void requestPointerLock()
+        public CanvasRenderingContext2DCachedEntity getContext(object contextId, CanvasRenderingContext2DSettings options = null)
         {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
+            return EventHorizonBlazorInterop.FuncClass<CanvasRenderingContext2DCachedEntity>(
+                entity => new CanvasRenderingContext2DCachedEntity() { ___guid = entity.___guid },
                 new object[]
                 {
-                    new string[] { this.___guid, "requestPointerLock" }
+                    new string[] { this.___guid, "getContext" }, contextId, options
                 }
             );
         }
 
-        public void msRequestPointerLock()
+        public void toBlob(BlobCallback callback, string type = null, object quality = null)
         {
             EventHorizonBlazorInterop.Func<CachedEntity>(
                 new object[]
                 {
-                    new string[] { this.___guid, "msRequestPointerLock" }
+                    new string[] { this.___guid, "toBlob" }, callback, type, quality
                 }
             );
         }
 
-        public void mozRequestPointerLock()
+        public string toDataURL(string type = null, object quality = null)
+        {
+            return EventHorizonBlazorInterop.Func<string>(
+                new object[]
+                {
+                    new string[] { this.___guid, "toDataURL" }, type, quality
+                }
+            );
+        }
+
+        public OffscreenCanvasCachedEntity transferControlToOffscreen()
+        {
+            return EventHorizonBlazorInterop.FuncClass<OffscreenCanvasCachedEntity>(
+                entity => new OffscreenCanvasCachedEntity() { ___guid = entity.___guid },
+                new object[]
+                {
+                    new string[] { this.___guid, "transferControlToOffscreen" }
+                }
+            );
+        }
+
+        public void addEventListener(K type, ActionCallback<HTMLCanvasElement, K> listener, System.Nullable<bool> options = null)
         {
             EventHorizonBlazorInterop.Func<CachedEntity>(
                 new object[]
                 {
-                    new string[] { this.___guid, "mozRequestPointerLock" }
+                    new string[] { this.___guid, "addEventListener" }, type, listener, options
                 }
             );
         }
 
-        public void webkitRequestPointerLock()
+        public void removeEventListener(K type, ActionCallback<HTMLCanvasElement, K> listener, System.Nullable<bool> options = null)
         {
             EventHorizonBlazorInterop.Func<CachedEntity>(
                 new object[]
                 {
-                    new string[] { this.___guid, "webkitRequestPointerLock" }
-                }
-            );
-        }
-
-        public MediaStream captureStream(System.Nullable<decimal> fps = null)
-        {
-            return EventHorizonBlazorInterop.FuncClass<MediaStream>(
-                entity => new MediaStream() { ___guid = entity.___guid },
-                new object[]
-                {
-                    new string[] { this.___guid, "captureStream" }, fps
+                    new string[] { this.___guid, "removeEventListener" }, type, listener, options
                 }
             );
         }

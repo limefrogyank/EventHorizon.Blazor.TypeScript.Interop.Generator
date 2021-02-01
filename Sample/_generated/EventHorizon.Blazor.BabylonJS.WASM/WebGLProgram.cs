@@ -12,7 +12,7 @@ namespace BabylonJS
     public interface WebGLProgram : ICachedEntity { }
     
     [JsonConverter(typeof(CachedEntityConverter<WebGLProgramCachedEntity>))]
-    public class WebGLProgramCachedEntity : CachedEntityObject, WebGLProgram
+    public class WebGLProgramCachedEntity : CachedEntityObject, WebGLObject, WebGLProgram
     {
         #region Static Accessors
 

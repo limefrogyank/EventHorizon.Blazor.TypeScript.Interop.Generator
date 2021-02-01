@@ -253,3 +253,5 @@ App_Data/*
 
 coverage*.json
 coverage*.xml
+/Sample/EventHorizon.BabylonJS.Interop.Generator.ConsoleApp/SourceFiles/lib.dom.d.ts
+/Sample/EventHorizon.BabylonJS.Interop.Generator.ConsoleApp/SourceFiles/lib.d.ts
